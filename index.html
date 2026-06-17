@@ -7,8 +7,6 @@
     <style>
         :root { --prc: #1a4a7a; --accent: #e67e22; --bg: #f0f2f5; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; text-align: center; }
-        #auth-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: var(--prc); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; }
-        .hidden { display: none !important; }
         .header { background: var(--prc); color: white; padding: 30px; border-bottom: 5px solid var(--accent); }
         .container { max-width: 900px; margin: 40px auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: 0.3s; cursor: pointer; border-top: 5px solid var(--prc); text-decoration: none; display: block; }
@@ -20,62 +18,17 @@
 </head>
 <body>
 
-<div id="auth-overlay">
-    <h2>Akses Portal Persona Research & Consulting</h2>
-    <input type="password" id="passInput" placeholder="Masukkan Password" style="padding: 10px; border-radius: 5px; border: none;">
-    <button onclick="checkAccess()" style="padding: 10px 20px; margin-top: 10px; cursor: pointer; background: var(--accent); color: white; border: none; border-radius: 5px;">Masuk</button>
-    <p id="msg" style="margin-top: 20px;"></p>
+<div class="header">
+    <h1>PORTAL EVALUASI CAT</h1>
+    <p>Persona Research And Consulting (PRC) | WA: 0877 425 5786</p>
 </div>
 
-<div id="main-content" class="hidden">
-    <div class="header">
-        <h1>PORTAL EVALUASI CAT</h1>
-        <p>Persona Research And Consulting (PRC) | WA: 0877 425 5786</p>
-    </div>
-
-    <div class="container">
-        <a href="silogisme.html" class="card"><h3>Tes Silogisme</h3><p>50 Soal Penalaran Analitik</p><span class="status">SIAP KERJAKAN</span></a>
-        <a href="kecerdasan_1.html" class="card"><h3>Kecerdasan 1</h3><p>Evaluasi Logika & Kemampuan Umum</p><span class="status">SIAP KERJAKAN</span></a>
-        <a href="kecerdasan_2.html" class="card"><h3>Kecerdasan 2</h3><p>Pendalaman Materi Kecerdasan</p><span class="status">SIAP KERJAKAN</span></a>
-        <a href="kecerdasan_verbal1.html" class="card"><h3>Kecerdasan Verbal</h3><p>Analogi, Sinonim, & Antonim</p><span class="status">SIAP KERJAKAN</span></a>
-    </div>
+<div class="container">
+    <a href="silogisme.html" class="card"><h3>Tes Silogisme</h3><p>50 Soal Penalaran Analitik</p><span class="status">SIAP KERJAKAN</span></a>
+    <a href="kecerdasan_1.html" class="card"><h3>Kecerdasan 1</h3><p>Evaluasi Logika & Kemampuan Umum</p><span class="status">SIAP KERJAKAN</span></a>
+    <a href="kecerdasan_2.html" class="card"><h3>Kecerdasan 2</h3><p>Pendalaman Materi Kecerdasan</p><span class="status">SIAP KERJAKAN</span></a>
+    <a href="kecerdasan_verbal1.html" class="card"><h3>Kecerdasan Verbal</h3><p>Analogi, Sinonim, & Antonim</p><span class="status">SIAP KERJAKAN</span></a>
 </div>
 
-<script>
-    const CONFIG = {
-        password: "pesona05",
-        expiryDate: new Date("2027-01-01").getTime(),
-        maxDevices: 50
-    };
-
-    function checkAccess() {
-        const input = document.getElementById('passInput').value;
-        const now = new Date().getTime();
-
-        if (now > CONFIG.expiryDate) {
-            document.getElementById('msg').innerText = "Portal telah kedaluwarsa.";
-            return;
-        }
-
-        if (input === CONFIG.password) {
-            let devices = JSON.parse(localStorage.getItem('prc_devices') || "[]");
-            const deviceId = navigator.userAgent + navigator.language;
-            
-            if (!devices.includes(deviceId)) {
-                if (devices.length >= CONFIG.maxDevices) {
-                    alert("Batas maksimal perangkat tercapai.");
-                    return;
-                }
-                devices.push(deviceId);
-                localStorage.setItem('prc_devices', JSON.stringify(devices));
-            }
-            
-            document.getElementById('auth-overlay').classList.add('hidden');
-            document.getElementById('main-content').classList.remove('hidden');
-        } else {
-            document.getElementById('msg').innerText = "Password salah!";
-        }
-    }
-</script>
 </body>
 </html>
